@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EntryRegisterActivity">
+
+    <TextView
+        android:id="@+id/title_food_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_register_food"
+        android:textSize="@dimen/font_size_m"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"/>
+
+
+    <TextView
+        android:id="@+id/date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/day_label"
+        android:textSize="@dimen/font_size_m"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_food_txt"
+        android:layout_marginTop="32dp"/>
+
+    <EditText
+        android:id="@+id/date_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:textSize="@dimen/font_size_m"
+        app:layout_constraintTop_toBottomOf="@id/date_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/border_component"
+        android:hint="@string/today_label"
+        android:textColor="@color/black"
+        android:padding="6dp"
+        android:enabled="false"
+        />
+
+    <ImageButton
+        android:id="@+id/date_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/baseline_calendar_month_24"
+        app:layout_constraintEnd_toEndOf="@id/date_txt"
+        app:layout_constraintBottom_toBottomOf="@id/date_txt"
+        app:layout_constraintTop_toTopOf="@id/date_txt"
+        android:layout_marginRight="16dp"/>
+
+    <TextView
+        android:id="@+id/time_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/time_label"
+        android:textSize="@dimen/font_size_m"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/date_txt"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/time_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:textSize="@dimen/font_size_m"
+        app:layout_constraintTop_toBottomOf="@id/time_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/border_component"
+        android:hint="@string/now_label"
+        android:textColor="@color/black"
+        android:padding="6dp"
+        android:enabled="false"/>
+
+    <ImageButton
+        android:id="@+id/time_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/baseline_access_time_24"
+        app:layout_constraintEnd_toEndOf="@id/time_txt"
+        app:layout_constraintBottom_toBottomOf="@id/time_txt"
+        app:layout_constraintTop_toTopOf="@id/time_txt"
+        android:layout_marginRight="16dp"/>
+
+    <TextView
+        android:id="@+id/name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/name_label"
+        android:textSize="@dimen/font_size_m"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/time_txt"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/name_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:textSize="@dimen/font_size_m"
+        app:layout_constraintTop_toBottomOf="@id/name_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/border_component"
+        android:hint="@string/name_label"
+        android:textColor="@color/black"
+        android:padding="6dp"/>
+
+    <TextView
+        android:id="@+id/calories_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/calories_label"
+        android:textSize="@dimen/font_size_m"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name_txt"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/calories_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:textSize="@dimen/font_size_m"
+        app:layout_constraintTop_toBottomOf="@id/calories_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/border_component"
+        android:hint="@string/calories_label"
+        android:textColor="@color/black"
+        android:padding="6dp"/>
+
+
+    <Button
+        android:id="@+id/regist_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/register_btn"
+        android:textSize="@dimen/btn_size"
+        app:layout_constraintEnd_toStartOf="@id/cancelar_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calories_txt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        android:backgroundTint="@color/color_btn"
+        android:textColor="@color/black"
+        app:cornerRadius="0dp"/>
+
+
+    <Button
+        android:id="@+id/cancelar_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/cancel_btn"
+        android:textSize="@dimen/btn_size"
+        app:layout_constraintStart_toEndOf="@id/regist_btn"
+        app:layout_constraintTop_toTopOf="@id/regist_btn"
+        app:layout_constraintBottom_toBottomOf="@id/regist_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="@color/material_dynamic_tertiary60"
+        android:textColor="@color/black"
+        app:cornerRadius="0dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

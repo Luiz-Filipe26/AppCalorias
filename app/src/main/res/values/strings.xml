@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">TesteGringo</string>
+    <string name="email_label">Email</string>
+    <string name="fill_email">inform your email</string>
+    <string name="password_label">Password</string>
+    <string name="fill_password">inform your password</string>
+    <string name="login_btn">Login</string>
+    <string name="signup_btn">Signup</string>
+    <string name="first_fragment_label"> </string>
+    <string name="second_fragment_label"> </string>
+    <string name="title_register_food">Cadastro Nova Refeição</string>
+    <string name="day_label">Dia</string>
+    <string name="today_label">Hoje</string>
+    <string name="time_label">Horário</string>
+    <string name="now_label">Agora</string>
+    <string name="name_label">Name</string>
+    <string name="calories_label">Calorias</string>
+    <string name="register_btn">Cadastrar</string>
+    <string name="cancel_btn">Cancelar</string>
+    <!-- Strings used for fragments for navigation -->
+
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="font_size_m">28sp</dimen>
+    <dimen name="font_size_p">18sp</dimen>
+    <dimen name="font_header">30sp</dimen>
+    <dimen name="btn_size">22sp</dimen>
+</resources>

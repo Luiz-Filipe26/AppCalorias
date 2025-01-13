@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity"
+    android:background="@color/background">
+
+    <TextView
+        android:id="@+id/user_name_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Name..."
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="@dimen/font_header"
+        android:textStyle="bold"
+        android:layout_marginTop="32dp"/>
+
+    <!-- Campo para filtrar as refeições DATA 1-->
+    <EditText
+        android:id="@+id/initial_date_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_name_txt"
+        app:layout_constraintEnd_toStartOf="@id/final_date_edit"
+        android:background="@drawable/border_component"
+        android:inputType="time"
+        android:paddingLeft="16dp"
+        android:paddingVertical="8dp"
+        android:textSize="@dimen/font_size_p"
+        android:hint="HOJE"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        />
+
+    <ImageButton
+        android:id="@+id/initial_date_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/baseline_calendar_month_24"
+        app:layout_constraintEnd_toEndOf="@id/initial_date_edit"
+        app:layout_constraintBottom_toBottomOf="@id/initial_date_edit"
+        app:layout_constraintTop_toTopOf="@id/initial_date_edit"
+        android:layout_marginRight="4dp"/>
+
+    <!-- Campo para filtrar as refeições DATA 2-->
+    <EditText
+        android:id="@+id/final_date_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/initial_date_edit"
+        app:layout_constraintTop_toTopOf="@id/initial_date_edit"
+        app:layout_constraintBottom_toBottomOf="@id/initial_date_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/border_component"
+        android:paddingLeft="16dp"
+        android:paddingVertical="8dp"
+        android:textSize="@dimen/font_size_p"
+        android:hint="..."
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:inputType="time"
+        />
+
+    <ImageButton
+        android:id="@+id/final_date_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/baseline_calendar_month_24"
+        app:layout_constraintEnd_toEndOf="@id/final_date_edit"
+        app:layout_constraintBottom_toBottomOf="@id/final_date_edit"
+        app:layout_constraintTop_toTopOf="@id/final_date_edit"
+        android:layout_marginRight="4dp"/>
+
+    <TextView
+        android:id="@+id/remain_calories_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4000 Calorias Restantes"
+        android:textSize="@dimen/font_size_p"
+        app:layout_constraintTop_toBottomOf="@id/initial_date_edit"
+        app:layout_constraintStart_toStartOf="@id/initial_date_edit"
+        app:layout_constraintEnd_toEndOf="@id/final_date_edit"
+        android:layout_marginTop="32dp"/>
+
+    <ListView
+        android:id="@+id/foods_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/remain_calories_txt"
+        app:layout_constraintBottom_toTopOf="@id/daily_calories_txt"
+        android:background="@drawable/border_component"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/daily_calories_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calorias: xxx"
+        android:textSize="@dimen/font_size_p"
+        app:layout_constraintBottom_toBottomOf="@id/limit_txt"
+        app:layout_constraintTop_toTopOf="@id/limit_txt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/limit_txt"
+        android:layout_marginLeft="16dp"/>
+
+    <TextView
+        android:id="@+id/limit_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Limite: 2100"
+        android:textSize="@dimen/font_size_p"
+        app:layout_constraintBottom_toTopOf="@id/add_food_btn"
+        app:layout_constraintEnd_toEndOf="@id/add_food_btn"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintStart_toEndOf="@id/daily_calories_txt"
+        android:layout_marginLeft="16dp"/>
+
+    <ImageButton
+        android:id="@+id/edit_limit_btn"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/baseline_edit_24"
+        app:layout_constraintStart_toEndOf="@id/limit_txt"
+        app:layout_constraintBottom_toBottomOf="@id/limit_txt"
+        app:layout_constraintTop_toTopOf="@id/limit_txt"
+        android:layout_marginLeft="8dp"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cadastrar Refeição"
+        app:layout_constraintTop_toTopOf="@id/add_food_btn"
+        app:layout_constraintBottom_toBottomOf="@id/add_food_btn"
+        app:layout_constraintEnd_toStartOf="@id/add_food_btn"
+        android:textSize="@dimen/font_size_p"
+        android:layout_marginRight="8dp"/>
+        />
+
+    <ImageButton
+        android:id="@+id/add_food_btn"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@drawable/baseline_add_circle_outline_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="32dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
