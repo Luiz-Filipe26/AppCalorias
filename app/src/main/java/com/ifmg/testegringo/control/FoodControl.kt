@@ -25,6 +25,12 @@ class FoodControl(var context:Context) {
         }
     }
 
+    fun removeTotalCalories(calories:Float){
+        if(calories > 0){
+            localCache.removeTotalCalories(calories)
+        }
+    }
+
     fun getTotalCaloreies():Float{
         return localCache.getTotalCalories()
     }
@@ -54,17 +60,24 @@ class FoodControl(var context:Context) {
 
     }
 
+    fun loadAllFoods(): List<Food> {
+        return foodRepository.getAllFoods()
+    }
+
+    fun removeFood(food: Food) {
+        foodRepository.removeFood(food)
+    }
+
+
     fun registerFoodDatabase(food:Food):Long{
 
         val today = Calendar.getInstance()
 
-        if(food != null){
-            val foodDay = Calendar.getInstance()
-            foodDay.time = food.date
+        val foodDay = Calendar.getInstance()
+        foodDay.time = food.date
 
-            if(foodDay.before(today)){
-                return foodRepository.registerFood(food)
-            }
+        if(foodDay.before(today)){
+            return foodRepository.registerFood(food)
         }
 
         return -1L

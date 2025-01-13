@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -22,15 +23,15 @@ import java.util.Calendar
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var bindingHome:ActivityHome2Binding
+    private lateinit var bindingHome: ActivityHome2Binding
     private lateinit var foodControl: FoodControl
 
-    private var countFood:Int = 0
+    private var countFood: Int = 0
 
-    lateinit var newFoodCallback:ActivityResultLauncher<Intent>
+    lateinit var newFoodCallback: ActivityResultLauncher<Intent>
 
     //lateinit var adapterFoodsList:FoodListAdapter
-    lateinit var adapterFoodsListCustom:FoodListCustomItem
+    lateinit var adapterFoodsListCustom: FoodListCustomItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,10 +50,11 @@ class HomeActivity : AppCompatActivity() {
 
         /*adapterFoodsList = FoodListAdapter(this)
         bindingHome.foodsList.adapter = adapterFoodsList.itemAdapter*/
-        adapterFoodsListCustom = FoodListCustomItem(this)
+        adapterFoodsListCustom = FoodListCustomItem(this, foodControl, bindingHome)
         bindingHome.foodsList.adapter = adapterFoodsListCustom
 
         loadCacheData()
+        loadFoodsFromDatabase()
 
         registerCallbacks()
 
@@ -60,63 +62,74 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    private fun loadCacheData(){
+    private fun loadCacheData() {
         bindingHome.dailyCaloriesTxt.setText("Calorias: ${foodControl.getTotalCaloreies()}")
-    }
-
-    private fun registerCallbacks(){
-        newFoodCallback = registerForActivityResult(ActivityResultContracts.StartActivityForResult(),
-            ActivityResultCallback {
-                result ->
-                print("retorno da Activity anterior")
-                val datas:Bundle? = result.data?.extras
-
-                if(datas != null){
-                    if (datas.containsKey("food")){
-                        /*val calories:Float = datas.getFloat("calories")*/
-
-                        val food:Food? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                            datas.getSerializable("food", Food::class.java)
-                        } else {
-
-                            //api mais antiga (devices antigos)
-                            if(datas.getString("food") != null) {
-                                Json.decodeFromString(datas.getString("food")!!) as Food
-                            }else{
-                                null
-                            }
-                        }
-
-                        if(food != null) {
-
-                            val changedDay = foodControl.setLastDay(Calendar.getInstance().time)
-                            if(changedDay){
-                                countFood = 0
-                            }
-
-                            foodControl.addTotalCalories(food.calories)
-
-                            countFood += food.calories.toInt()
-
-                            bindingHome.dailyCaloriesTxt.setText("Calorias: ${countFood}")
-
-
-                            //cadastra em banco
-                            val id = foodControl.registerFoodDatabase(food)
-                            Toast.makeText(this,"id:${id}",Toast.LENGTH_SHORT).show()
-
-                            adapterFoodsListCustom.addNewFood(food)
-
-                        }
-                    }
-                }
-            })
 
     }
 
-    private fun registerEvents(){
+    private fun loadFoodsFromDatabase() {
+        val foods = foodControl.loadAllFoods()
+        adapterFoodsListCustom.addFoods(foods)
+    }
+
+    private fun registerCallbacks() {
+        newFoodCallback =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()
+            ) { result -> foodCallBack(result) }
+    }
+
+    private fun foodCallBack(result: ActivityResult) {
+        print("retorno da Activity anterior")
+        val datas: Bundle? = result.data?.extras
+
+        if (datas == null || !datas.containsKey("food")) {
+            return
+        }
+
+        /*val calories:Float = datas.getFloat("calories")*/
+
+        val food: Food? =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                datas.getSerializable("food", Food::class.java)
+            }
+            //api mais antiga (devices antigos)
+            else if (datas.getString("food") != null) {
+                Json.decodeFromString(datas.getString("food")!!) as Food
+            } else {
+                null
+            }
+
+        if (food == null) {
+            return
+        }
+
+        val changedDay = foodControl.setLastDay(Calendar.getInstance().time)
+        if (changedDay) {
+            countFood = 0
+        }
+
+        foodControl.addTotalCalories(food.calories)
+
+        countFood += food.calories.toInt()
+
+        bindingHome.dailyCaloriesTxt.setText("Calorias: ${countFood}")
+
+
+        // Registra o alimento no banco e obtém o ID
+        val id = foodControl.registerFoodDatabase(food)
+        if (id != -1L) {
+            food.id = id
+            Toast.makeText(this, "Comida registrada com sucesso! ID: $id", Toast.LENGTH_SHORT).show()
+            adapterFoodsListCustom.addNewFood(food)  // Adiciona o novo alimento na interface
+        } else {
+            Toast.makeText(this, "Erro ao registrar comida", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    private fun registerEvents() {
         bindingHome.addFoodBtn.setOnClickListener(View.OnClickListener {
-            val transitionRegister:Intent = Intent(this, EntryRegisterActivity::class.java)
+            val transitionRegister: Intent = Intent(this, EntryRegisterActivity::class.java)
 
             newFoodCallback.launch(transitionRegister)
 

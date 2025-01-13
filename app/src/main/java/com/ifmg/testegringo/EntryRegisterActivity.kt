@@ -103,7 +103,7 @@ class EntryRegisterActivity : AppCompatActivity() {
             //act. default para encapsular os resultados para a Act. que estará no topo da pilha ao aplicar finish
             val results:Intent = Intent()
 
-            val food:Food = Food(bindingEntry.nameTxt.text.toString(),
+            val food:Food = Food(null, bindingEntry.nameTxt.text.toString(),
                 bindingEntry.caloriesTxt.text.toString().toFloat(),
                 dayFood.time)
 

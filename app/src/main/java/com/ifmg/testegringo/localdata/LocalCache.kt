@@ -29,6 +29,17 @@ class LocalCache(var context:Context) {
         return cache.getFloat("calTotal",0.0f)
     }
 
+    fun removeTotalCalories(cal:Float) {
+        var totalCal:Float = getTotalCalories()
+        totalCal -= cal
+
+        //marcando a cache para ser escrita em breve
+        val editor:SharedPreferences.Editor = cache.edit()
+
+        editor.putFloat("calTotal", totalCal)
+        editor.apply() //escrita na cache ocorre
+    }
+
     fun setLastDayFood(longTime:Long){
         val editor:SharedPreferences.Editor = cache.edit()
 
