@@ -21,6 +21,7 @@ class FoodListCustomItem(var context: Context, private val foodControl: FoodCont
 
     lateinit var itemAdapter: ArrayAdapter<String>
     var foods: MutableList<Food> = mutableListOf()
+    private val views: MutableList<View> = mutableListOf()
     lateinit var inflater: LayoutInflater
 
     init {
@@ -40,23 +41,21 @@ class FoodListCustomItem(var context: Context, private val foodControl: FoodCont
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var tempView = convertView
-
-        //será que o item foi RENDER. em algum momento
-        if (tempView == null) {
-            tempView = inflater.inflate(R.layout.food_item_home, parent, false)
-            val foodSelected = foods[position]
-            tempView.findViewById<TextView>(R.id.name_item).setText(foodSelected.name)
-            tempView.findViewById<TextView>(R.id.cal_item).setText(foodSelected.calories.toString())
-
-            registerEvents(tempView, position)
-
-            return tempView
-        } else {
-            return tempView
+        if (position < views.size) {
+            val view = views[position]
+            return views[position]
         }
 
+        val view = inflater.inflate(R.layout.food_item_home, parent, false)
+        val foodSelected = foods[position]
+        view.findViewById<TextView>(R.id.name_item).text = foodSelected.name
+        view.findViewById<TextView>(R.id.cal_item).text = foodSelected.calories.toString()
+        registerEvents(view, position)
+        views.add(view)
+
+        return view
     }
+
 
     private fun registerEvents(tempView: View, position: Int) {
         tempView.findViewById<ImageButton>(R.id.hide_food).setOnClickListener {
@@ -66,10 +65,16 @@ class FoodListCustomItem(var context: Context, private val foodControl: FoodCont
 
         tempView.findViewById<ImageButton>(R.id.delete_food).setOnClickListener {
             val food = foods[position]
-            foodControl.removeFood(food)
-            foods.removeAt(position)
-            this.notifyDataSetChanged()
-            bindingHome.dailyCaloriesTxt.setText("Calorias: ${foodControl.getTotalCaloreies()}")
+
+            val viewIndex = views.indexOf(tempView)
+            if (viewIndex != -1) {
+                foods.removeAt(viewIndex)
+                views.removeAt(viewIndex)
+                foodControl.removeFood(food)
+                foodControl.removeTotalCalories(food.calories)
+                this.notifyDataSetChanged()
+                bindingHome.dailyCaloriesTxt.text = "Calorias: ${foodControl.getTotalCaloreies()}"
+            }
         }
     }
 
@@ -80,6 +85,7 @@ class FoodListCustomItem(var context: Context, private val foodControl: FoodCont
 
     fun addFoods(newFoods: List<Food>) {
         foods.clear()
+        views.clear()
         foods.addAll(newFoods)
         this.notifyDataSetChanged()
     }
