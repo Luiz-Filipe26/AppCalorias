@@ -64,10 +64,10 @@ class FoodListCustomItem(var context: Context, private val foodControl: FoodCont
         }
 
         tempView.findViewById<ImageButton>(R.id.delete_food).setOnClickListener {
-            val food = foods[position]
 
             val viewIndex = views.indexOf(tempView)
             if (viewIndex != -1) {
+                val food = foods[viewIndex]
                 foods.removeAt(viewIndex)
                 views.removeAt(viewIndex)
                 foodControl.removeFood(food)
